@@ -4,13 +4,13 @@
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7286",
+      "applicationUrl": "https://localhost:7291",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "AUTH_AUTHORITY": "https://jomaroflo94.eu.auth0.com",
-        "AUTH_CLIENT_ID": "lh4MMdApdElLa3MGfgoAICCtp4GgWuT8",
+        "AUTH_AUTHORITY": "https://localhost:7292",
+        "AUTH_CLIENT_ID": "BFF_Proxy",
         "AUTH_CLIENT_SECRET": "RsSmWp5wiT1eRrng4C58w1VSMa2Qd7N5HMcGgTdXdJT_5qc9oygequLUWV2L0Gvn"
       }
     }

@@ -1,2 +1,8 @@
-src/BFFProxyServer/bin
-src/BFFProxyServer/obj
+src/BFF.Proxy/bin
+src/BFF.Proxy/obj
+src/ISP.WebApp/bin
+src/ISP.WebApp/obj
+src/Resource.Api/bin
+src/Resource.Api/obj
+
+.vscode/
