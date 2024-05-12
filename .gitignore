@@ -1,7 +1,14 @@
 src/BFF.Proxy/bin
 src/BFF.Proxy/obj
+
 src/ISP.WebApp/bin
 src/ISP.WebApp/obj
+src/ISP.WebApp/ISP.db
+src/ISP.WebApp/ISP.db-shm
+src/ISP.WebApp/ISP.db-wal
+src/ISP.WebApp/keys
+src/ISP.WebApp/Migrations
+
 src/Resource.Api/bin
 src/Resource.Api/obj
 

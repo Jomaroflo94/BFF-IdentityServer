@@ -1,32 +1,49 @@
-using Microsoft.EntityFrameworkCore;
 using Resource.Api;
-using Resource.Api.DbContexts;
-using Resource.Api.Repositories;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
+Log.Information("Starting up");
 
-builder.Services.AddDbContext<ApiContext>(options => {
-    options.UseInMemoryDatabase(databaseName: "ResourceDb");
-});
-
-builder.Services.AddScoped<IProgrammingLanguagesRepository, 
-    ProgrammingLanguagesRepository>();
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Host.ConfigureHost();
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddControllers();
+
+    builder.Services.ConfigureSwaggerServices();
+    builder.Services.ConfigureDbContextServices();
+    builder.Services.ConfigureRepositoriesServices();
+    builder.Services.ConfigureSecurityServices();
+
+    var app = builder.Build();
+
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwaggerConfiguration();
+    }
+
+    app.UseCors("BFF.Proxy");
+    app.UseHttpsRedirection();
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.MapControllers();
+
+    Seed.Initialize(app.Services);
+
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-app.MapControllers();
-
-Seed.Initialize(app.Services);
-
-app.Run();
+catch (Exception ex) when (ex is not HostAbortedException)
+{
+    Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+    Log.Information("Shut down complete");
+    Log.CloseAndFlush();
+}

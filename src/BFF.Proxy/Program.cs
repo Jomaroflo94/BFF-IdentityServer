@@ -6,16 +6,15 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddControllers();
 
 // Register BFF services and configure the BFF middleware
 // Registra servicios necesarios para el reenvio http de YARP
-builder.Services.AddBff().AddRemoteApis();
+builder.Services.AddBff(options => {
+    //options.AntiForgeryHeaderName = 
+}).AddRemoteApis();
 
 builder.Services
     // Configure ASP.NET Authentication
@@ -30,7 +29,7 @@ builder.Services
     {
         options.ExpireTimeSpan = TimeSpan.FromHours(8);
         options.SlidingExpiration = false;
-        options.Cookie.Name = "__MySPA";
+        options.Cookie.Name = "__ClientSPA";
         // When the value is Strict the cookie will only be sent along with "same-site" requests.
         options.Cookie.SameSite = SameSiteMode.Strict;
     })
@@ -76,40 +75,19 @@ app.UseAuthentication();
 app.UseBff();
 app.UseAuthorization();
 
+//The call to the AsBffApiEndpoint() fluent helper method
+//adds BFF support to the local APIs. This includes anti-forgery
+//protection as well as suppressing login redirects on authentication failures and
+//instead returning 401 and 403 status codes under the appropriate circumstances.
 app.MapControllers().AsBffApiEndpoint();
 
 // Adds the BFF management endpoints (/bff/login, /bff/logout, ...)
 app.MapBffManagementEndpoints();
 
+// proxy any call to local /remote to the actual remote api
+// passing the access token
 app.MapRemoteBffApiEndpoint(
         "/api/notes", "https://localhost:7094/api/Note/GetNotes")
     .RequireAccessToken(TokenType.User);
 
-// var summaries = new[]
-// {
-//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-// };
-
-// app.MapGet("/weatherforecast", () =>
-// {
-//     var forecast =  Enumerable.Range(1, 5).Select(index =>
-//         new WeatherForecast
-//         (
-//             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//             Random.Shared.Next(-20, 55),
-//             summaries[Random.Shared.Next(summaries.Length)]
-//         ))
-//         .ToArray();
-//     return forecast;
-// })
-// .WithName("GetWeatherForecast")
-// .AsBffApiEndpoint()
-// .RequireAuthorization()
-// .WithOpenApi();
-
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

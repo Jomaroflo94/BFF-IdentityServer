@@ -8,7 +8,12 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7293;",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AUTHORITY": "https://localhost:7292",
+        "CLIENT_ID": "Swagger.Resource.Api",
+        "CLIENT_SECRET": "Secret.Swagger.Resource.Api",
+        "JWT_AUDIENCE": "Resource.Api",
+        "JWT_TYPES": "at+jwt"
       }
     }
   }

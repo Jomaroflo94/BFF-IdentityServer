@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Resource.Api.Entities;
 using Resource.Api.Repositories;
 
@@ -14,12 +15,14 @@ public class ProgrammingLanguageController(
         _ProgrammingLanguagesRepository = programmingLanguagesRepository;
 
     [HttpGet]
+    [Authorize(Policy = "Read")]
     public IActionResult Get()
     {
         return Ok(_ProgrammingLanguagesRepository.Get());
     }
 
     [HttpGet("{id}")]
+    [Authorize(Policy = "Read")]
     public IActionResult Get(int id)
     {
         var result = _ProgrammingLanguagesRepository.Get(id);
@@ -33,6 +36,7 @@ public class ProgrammingLanguageController(
     }
 
     [HttpPost]
+    [Authorize(Policy = "Write")]
     public async Task<IActionResult> AddAsync([FromBody] ProgrammingLanguage data)
     {
         if(!ModelState.IsValid)
@@ -51,6 +55,7 @@ public class ProgrammingLanguageController(
     }
 
     [HttpPut]
+    [Authorize(Policy = "Update")]
     public async Task<IActionResult> UpdateAsync([FromBody] ProgrammingLanguage data)
     {
         if(!ModelState.IsValid)
@@ -69,6 +74,7 @@ public class ProgrammingLanguageController(
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "Delete")]
     public async Task<ActionResult> DeleteAsync(int id)
     {
         var data = _ProgrammingLanguagesRepository.Get(id);
