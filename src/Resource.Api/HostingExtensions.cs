@@ -85,10 +85,11 @@ internal static class HostingExtensions
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => {
                 options.Authority = GetVariable("AUTHORITY");
-                options.Audience = GetVariable("JWT_AUDIENCE");
+                //options.Audience = GetVariable("JWT_AUDIENCE");
 
                 options.TokenValidationParameters.ValidAlgorithms = [SecurityAlgorithms.RsaSha256];
                 options.TokenValidationParameters.ValidTypes = GetVariable("JWT_TYPES")?.Split(';');
+                options.TokenValidationParameters.ValidateAudience = false;
 
                 // options.TokenValidationParameters = new TokenValidationParameters
                 // {

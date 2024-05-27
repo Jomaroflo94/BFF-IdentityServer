@@ -75,7 +75,7 @@ internal static class HostingExtensions
         //app.UseCors("SecurityCORS");
         app.UseCors(options => 
         {
-            options.WithOrigins(GetVariable("CORS").Split(';'))
+            options.WithOrigins(GetVariable("RESOURCE_BASE_ADDRESS").Split(';'))
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();

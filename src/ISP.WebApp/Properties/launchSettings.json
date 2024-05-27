@@ -8,7 +8,13 @@
       "applicationUrl": "https://localhost:7292",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CORS": "https://localhost:7293"
+        "CLIENT_BASE_ADDRESS": "https://localhost:7290",
+        "BFF_BASE_ADDRESS": "https://localhost:7291",
+        "BFF_CLIENT_ID": "BFF.Proxy",
+        "BFF_CLIENT_SECRET": "Secret.BFF.Proxy",
+        "RESOURCE_BASE_ADDRESS": "https://localhost:7293",
+        "RESOURCE_CLIENT_ID": "Swagger.Resource.Api",
+        "RESOURCE_CLIENT_SECRET": "Secret.Swagger.Resource.Api"
       }
     }
   }

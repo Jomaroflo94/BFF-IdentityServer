@@ -40,12 +40,12 @@ public static class Config
     [
         new Client
         {
-            ClientId = "Swagger.Resource.Api",
-            ClientSecrets = { new Secret("Secret.Swagger.Resource.Api".Sha256()) },
+            ClientId = GetVariable("RESOURCE_CLIENT_ID"),
+            ClientSecrets = { new Secret(GetVariable("RESOURCE_CLIENT_SECRET").Sha256()) },
             AllowedGrantTypes = GrantTypes.ClientCredentials,
             RedirectUris =
             {
-                "https://localhost:7293/swagger/oauth2-redirect.html"
+                GetVariable("RESOURCE_BASE_ADDRESS") + "/swagger/oauth2-redirect.html"
             },
             AllowedScopes =
             {
@@ -58,34 +58,44 @@ public static class Config
                 "resource.api.all"
             },
             AllowOfflineAccess = true,
-            ClientUri = "https://localhost:7293/swagger/index.html"
+            ClientUri = GetVariable("RESOURCE_BASE_ADDRESS") + "/swagger/index.html"
         },
         new Client
         {
-            ClientId = "BFF.Proxy",
-            ClientSecrets = { new Secret("Secret.BFF.Proxy".Sha256()) },
+            ClientId = GetVariable("BFF_CLIENT_ID"),
+            ClientSecrets = { new Secret(GetVariable("BFF_CLIENT_SECRET").Sha256()) },
 
-            AllowedGrantTypes = GrantTypes.Code,
+            AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
             
-            // where to redirect to after login
             RedirectUris =
             {
-                "https://localhost:7291/signin-oidc"
+                GetVariable("BFF_BASE_ADDRESS") + "/signin-oidc",
+                GetVariable("CLIENT_BASE_ADDRESS") + "/signin-oidc"
             },
 
-            // where to redirect to after logout
             PostLogoutRedirectUris =
             {
-                "https://localhost:7291/signout-callback-oidc"
+                GetVariable("BFF_BASE_ADDRESS") + "/signout-callback-oidc",
+                GetVariable("CLIENT_BASE_ADDRESS") + "/signout-callback-oidc"
             },
 
             AllowedScopes =
             {
                 IdentityServerConstants.StandardScopes.OpenId,
-                IdentityServerConstants.StandardScopes.Profile
+                IdentityServerConstants.StandardScopes.Profile,
+                "resource.api.read",
+                "resource.api.write",
+                "resource.api.update",
+                "resource.api.delete",
+                "resource.api.all"
             },
             
             AllowOfflineAccess = true
         }
     ];
+
+    private static string GetVariable(string key)
+    {
+        return Environment.GetEnvironmentVariable(key) ?? string.Empty;
+    }
 }

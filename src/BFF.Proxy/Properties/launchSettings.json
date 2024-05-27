@@ -9,9 +9,11 @@
       "applicationUrl": "https://localhost:7291",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "AUTH_AUTHORITY": "https://localhost:7292",
-        "AUTH_CLIENT_ID": "BFF.Proxy",
-        "AUTH_CLIENT_SECRET": "Secret.BFF.Proxy"
+        "ISP_BASE_ADDRESS": "https://localhost:7292",
+        "BFF_CLIENT_ID": "BFF.Proxy",
+        "BFF_CLIENT_SECRET": "Secret.BFF.Proxy",
+        "X_CSRF_VALUE": "testCSRF",
+        "RESOURCE_BASE_ADDRESS": "https://localhost:7293"
       }
     }
   }
