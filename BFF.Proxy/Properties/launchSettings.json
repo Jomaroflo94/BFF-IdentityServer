@@ -1,0 +1,20 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7291",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "IDP_BASE_ADDRESS": "https://localhost:7292",
+        "BFF_CLIENT_ID": "BFF.Proxy",
+        "BFF_CLIENT_SECRET": "Secret.BFF.Proxy",
+        "X_CSRF_VALUE": "testCSRF",
+        "RESOURCE_BASE_ADDRESS": "https://localhost:7293"
+      }
+    }
+  }
+}

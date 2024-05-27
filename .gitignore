@@ -1,18 +1,18 @@
-src/BFF.Proxy/bin
-src/BFF.Proxy/obj
+BFF.Proxy/bin
+BFF.Proxy/obj
 
-src/ISP.WebApp/bin
-src/ISP.WebApp/obj
-src/ISP.WebApp/ISP.db
-src/ISP.WebApp/ISP.db-shm
-src/ISP.WebApp/ISP.db-wal
-src/ISP.WebApp/keys
-src/ISP.WebApp/Migrations
+IDP.WebApp/bin
+IDP.WebApp/obj
+IDP.WebApp/IDP.db
+IDP.WebApp/IDP.db-shm
+IDP.WebApp/IDP.db-wal
+IDP.WebApp/keys
+IDP.WebApp/Migrations
 
-src/Resource.Api/bin
-src/Resource.Api/obj
+Resource.Api/bin
+Resource.Api/obj
 
-src/Client.Web/node_modules
-src/Client.Web/package-lock.json
+Client.Web/node_modules
+Client.Web/package-lock.json
 
 .vscode/
